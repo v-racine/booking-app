@@ -12,7 +12,7 @@ form.addEventListener("submit", async (e) => {
   const dataForSubmission = JSON.stringify(map);
 
   try {
-    let submission = await fetch(form.action, {
+    const submission = await fetch(form.action, {
       method: form.method,
       headers: { "Content-Type": "application/json" },
       body: dataForSubmission,
