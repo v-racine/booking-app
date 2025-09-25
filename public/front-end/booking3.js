@@ -6,8 +6,17 @@ document.addEventListener("DOMContentLoaded", () => {
   let scheduleCount = 0;
 
   async function fetchStaffMembers() {
-    const response = await fetch("/api/staff_members");
-    return response.json();
+    try {
+      const response = await fetch("/api/staff_members");
+      if (!response.ok) {
+        throw new Error(
+          `Failed to fetch staff members. Status: ${response.status}`
+        );
+      }
+      return response.json();
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   // Template for creating a schedule
@@ -46,16 +55,17 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Convert form inputs to JSON
-  function formInputsToJson(form) {
-    const json = [];
-    for (let i = 0; i < scheduleCount; i += 1) {
-      json.push({
-        staff_id: form[`staff_${i + 1}`].value,
-        date: form[`date_${i + 1}`].value,
-        time: form[`time_${i + 1}`].value,
-      });
-    }
-    return { schedules: json };
+  function formInputsToJson() {
+    const schedules = Array.from(
+      document.querySelectorAll("#schedules fieldset")
+    ).map((fieldset) => {
+      return {
+        staff_id: fieldset.querySelector('select[name^="staff_"]').value,
+        date: fieldset.querySelector('input[name^="date_"]').value,
+        time: fieldset.querySelector('input[name^="time_"]').value,
+      };
+    });
+    return { schedules };
   }
 
   // Handle form submission
@@ -63,14 +73,21 @@ document.addEventListener("DOMContentLoaded", () => {
     event.preventDefault();
     const json = JSON.stringify(formInputsToJson(event.target));
 
-    const response = await fetch(event.target.action, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: json,
-    });
+    try {
+      const response = await fetch(event.target.action, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: json,
+      });
 
-    if (response.status === 201) form.reset();
-    alert(await response.text());
+      if (response.status === 201) form.reset();
+      alert(await response.text());
+    } catch (error) {
+      console.error("Error submitting schedules:", error);
+      alert(
+        "An error occurred while submitting schedules. Please check your connection and try again."
+      );
+    }
   }
 
   async function main() {
