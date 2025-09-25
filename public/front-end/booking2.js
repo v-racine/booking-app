@@ -27,6 +27,6 @@ form.addEventListener("submit", async (e) => {
     }
   } catch (err) {
     alert("Sorry, something went wrong. Please try again later.");
-    console.log(err);
+    console.error(err);
   }
 });
