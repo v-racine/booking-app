@@ -19,7 +19,7 @@ form.addEventListener("submit", async (e) => {
     });
 
     if (submission.status === 201) {
-      let data = await submission.json();
+      const data = await submission.json();
       alert(`Successfully created staff with id: ${data.id}`);
       form.reset();
     } else if (submission.status >= 400 || submission.status < 600) {
