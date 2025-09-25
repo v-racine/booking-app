@@ -1,0 +1,32 @@
+const form = document.querySelector("form");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(form);
+  const map = {};
+  formData.forEach((value, key) => {
+    map[key] = value;
+  });
+
+  const dataForSubmission = JSON.stringify(map);
+
+  try {
+    const submission = await fetch(form.action, {
+      method: form.method,
+      headers: { "Content-Type": "application/json" },
+      body: dataForSubmission,
+    });
+
+    if (submission.status === 201) {
+      const data = await submission.json();
+      alert(`Successfully created staff with id: ${data.id}`);
+      form.reset();
+    } else if (submission.status >= 400) {
+      alert(await submission.text());
+    }
+  } catch (err) {
+    alert("Sorry, something went wrong. Please try again later.");
+    console.error(err);
+  }
+});
