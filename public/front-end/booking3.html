@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Exercise 4</title>
+    <style>
+      form {
+        padding: 1em 0;
+      }
+
+      fieldset {
+        padding: 1.5em;
+        width: 100%;
+      }
+
+      div {
+        align-items: center;
+        margin-bottom: 0.5em;
+      }
+
+      label {
+        display: inline-block;
+        width: 100px;
+        text-align: right;
+        font-weight: bold;
+        color: #f0595b;
+        margin-right: 10px;
+      }
+
+      input,
+      select {
+        flex: 1;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        max-width: 200px;
+      }
+
+      input[type="submit"],
+      button {
+        display: inline-block;
+        margin-top: 15px;
+        color: #fff;
+        border-radius: 5px;
+        width: 100px;
+        height: 50px;
+        border: none;
+        cursor: pointer;
+      }
+
+      input[type="submit"] {
+        background: #f0595b;
+      }
+
+      button {
+        background: #5cafde;
+      }
+    </style>
+    <script src="part4.js"></script>
+  </head>
+  <body>
+    <button id="btnAdd">Add more schedules</button>
+
+    <form method="post" action="/api/schedules">
+      <div id="schedules"></div>
+      <input id="btnSubmit" type="submit" />
+    </form>
+  </body>
+  <script src="booking3.js"></script>
+</html>
