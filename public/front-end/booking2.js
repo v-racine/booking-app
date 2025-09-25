@@ -1,3 +1,3 @@
 function hello() {
-  console.log("Hello Gemini!");
+  console.log("Hello again Gemini!");
 }
