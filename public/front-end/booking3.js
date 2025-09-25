@@ -6,17 +6,13 @@ document.addEventListener("DOMContentLoaded", () => {
   let scheduleCount = 0;
 
   async function fetchStaffMembers() {
-    try {
-      const response = await fetch("/api/staff_members");
-      if (!response.ok) {
-        throw new Error(
-          `Failed to fetch staff members. Status: ${response.status}`
-        );
-      }
-      return response.json();
-    } catch (err) {
-      console.error(err);
+    const response = await fetch("/api/staff_members");
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch staff members. Status: ${response.status}`
+      );
     }
+    return response.json();
   }
 
   // Template for creating a schedule
@@ -71,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Handle form submission
   async function handleSubmit(event) {
     event.preventDefault();
-    const json = JSON.stringify(formInputsToJson(event.target));
+    const json = JSON.stringify(formInputsToJson());
 
     try {
       const response = await fetch(event.target.action, {
@@ -95,7 +91,13 @@ document.addEventListener("DOMContentLoaded", () => {
     btnAdd = document.getElementById("btnAdd");
     form = document.querySelector("form");
 
-    staffs = await fetchStaffMembers();
+    try {
+      staffs = await fetchStaffMembers();
+    } catch (error) {
+      console.error(error);
+      alert("Failed to load staff members. Please refresh the page.");
+      return; // Stop execution
+    }
 
     addSchedule();
 
