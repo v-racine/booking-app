@@ -48,13 +48,13 @@ async function populateScheduleOptions() {
       staffMembersPromise,
     ]);
     mapStaffNamesToSchedules(schedules, staffMembers);
+
+    const scheduleList = document.querySelector("#id");
+    scheduleList.innerHTML = templates.scheduleOptions(schedules);
   } catch (err) {
     console.error(err);
     errDiv.textMessage = "Sorry, something went wrong. Please try again later.";
   }
-
-  const scheduleList = document.querySelector("#id");
-  scheduleList.innerHTML = templates.scheduleOptions(schedules);
 }
 
 function displayNewStudentForm(data) {
