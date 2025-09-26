@@ -117,8 +117,8 @@ async function handleNewStudent(e) {
 document.addEventListener("DOMContentLoaded", () => {
   populateScheduleOptions();
 
-  let newBookingForm = document.getElementById("newBookingForm");
-  let newStudentForm = document.getElementById("newStudentForm");
+  const newBookingForm = document.getElementById("newBookingForm");
+  const newStudentForm = document.getElementById("newStudentForm");
 
   newBookingForm.addEventListener("submit", handleNewBooking);
   newStudentForm.addEventListener("submit", handleNewStudent);
