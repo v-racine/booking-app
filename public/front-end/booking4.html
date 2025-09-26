@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <title>My Booking App</title>
+    <style>
+      #newStudentForm {
+        background: #ccc;
+        padding: 15px;
+        margin-top: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Schedules</h1>
+    <form id="newBookingForm" method="post" action="/api/bookings">
+      <label for="id">Please select one schedule</label>
+      <select id="id" name="id"></select>
+      <br />
+      <label for="student_email">Email:</label>
+      <input type="email" id="student_email" name="student_email" required />
+      <input id="btnSubmit" type="submit" />
+    </form>
+
+    <form
+      id="newStudentForm"
+      method="post"
+      action="/api/students"
+      style="display: none"
+    >
+      <h1>Please provide new student details</h1>
+
+      <label for="email">Email:</label>
+      <input type="email" name="email" id="email" />
+      <br />
+
+      <label for="name">Name:</label>
+      <input type="text" name="name" id="name" />
+      <br />
+
+      <label for="booking_sequence">Booking Sequence:</label>
+      <input type="text" name="booking_sequence" id="booking_sequence" />
+      <br />
+
+      <input type="submit" />
+    </form>
+  </body>
+  <script src="booking4.js"></script>
+</html>
