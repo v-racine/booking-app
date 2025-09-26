@@ -1,3 +1,4 @@
+const errDiv = document.querySelector("#error-message");
 const templates = {
   scheduleOptions(schedules) {
     return schedules
@@ -40,11 +41,17 @@ function mapStaffNamesToSchedules(schedules, staff) {
 async function populateScheduleOptions() {
   let schedulesPromise = fetchSchedules();
   let staffMembersPromise = fetchStaff();
-  let [schedules, staffMembers] = await Promise.all([
-    schedulesPromise,
-    staffMembersPromise,
-  ]);
-  mapStaffNamesToSchedules(schedules, staffMembers);
+
+  try {
+    let [schedules, staffMembers] = await Promise.all([
+      schedulesPromise,
+      staffMembersPromise,
+    ]);
+    mapStaffNamesToSchedules(schedules, staffMembers);
+  } catch (err) {
+    console.error(err);
+    errDiv.textMessage = "Sorry, something went wrong. Please try again later.";
+  }
 
   const scheduleList = document.querySelector("#id");
   scheduleList.innerHTML = templates.scheduleOptions(schedules);
