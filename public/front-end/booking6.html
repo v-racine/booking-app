@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <title>My Booking App</title>
+  </head>
+  <body>
+    <h1>Cancellations</h1>
+    <form id="cancelBookingForm" method="PUT" action="/api/bookings/">
+      <label for="booking_id">Booking ID:</label>
+      <input type="number" id="booking_id" name="booking_id" required />
+      <input type="submit" value="Cancel Booking" />
+    </form>
+
+    <form id="cancelScheduleForm" method="DELETE" action="/api/schedules/">
+      <label for="schedule_id">Schedule ID:</label>
+      <input type="number" id="schedule_id" name="schedule_id" required />
+      <input type="submit" value="Cancel Schedule" />
+    </form>
+  </body>
+  <script src="booking6.js"></script>
+</html>
