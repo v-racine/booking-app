@@ -11,9 +11,10 @@ const templates = {
   bookingsList(bookings) {
     let listItems = bookings
       .map(({ staffName, studentEmail, time }) => {
-        return this.bookingListItem(
-          `${staffName} | ${studentEmail} | ${time}</li>`
-        );
+        const li = document.createElement("li");
+        li.className = "booking";
+        li.textContent = `${staffName} | ${studentEmail} | ${time}`;
+        return li.outerHTML;
       })
       .join("");
 
@@ -46,9 +47,15 @@ function renderBookingsForDate(node, bookings) {
 function renderDatesWithBookings(dates) {
   const bookingList = document.querySelector("#bookings-list");
 
-  dates.forEach((date) => {
-    bookingList.innerHTML += templates.dateListItem(date);
-  });
+  const dateItemsHTML = dates
+    .map((date) => {
+      const li = document.createElement("li");
+      li.className = "date";
+      li.textContent = date;
+      return li.outerHTML;
+    })
+    .join("");
+  bookingList.innerHTML = dateItemsHTML;
 }
 
 //handler
